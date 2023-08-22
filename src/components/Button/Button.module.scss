@@ -1,0 +1,14 @@
+.button{
+    font-family: inherit;
+    background-color: var(--color-grey-dark);
+    color: var(--color-white);
+    border: none;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: .5rem;
+    margin-top: 2rem;
+    &:hover{
+        cursor: pointer;
+    }
+}
