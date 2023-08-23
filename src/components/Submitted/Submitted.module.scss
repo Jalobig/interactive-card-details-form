@@ -1,0 +1,22 @@
+.submit {
+  width: 23.75rem;
+  margin: 0 auto;
+  align-self: center;
+  text-align: center;
+  @media only screen and (max-width: 600px) {
+    margin-top: 5rem;
+    width: 90%;
+  }
+  &__icon {
+}
+&__heading {
+      margin: 1rem 0 .5rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+  }
+  &__text {
+    color: var(--color-grey);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+}
