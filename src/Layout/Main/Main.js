@@ -169,7 +169,7 @@ const Main = () => {
           />
           {nameHasError && (
             <p className={classes["form__text-error"]}>
-              Must have at least 3 caracters
+              Must have at least 3 characters
             </p>
           )}
           <label className={classes.form__label}>Card Number</label>
@@ -181,7 +181,6 @@ const Main = () => {
             mask="9999 9999 9999 9999"
             maskChar={null}
             type="text"
-            maxLength={19}
             onChange={numberOnChangeHandler}
             onBlur={numberOnChangeHandler}
           />
@@ -195,7 +194,6 @@ const Main = () => {
                 mask="99"
                 maskChar={null}
                 type="text"
-                maxLength={2}
                 onChange={monthOnChangeHandler}
                 onBlur={monthOnChangeHandler}
                 className={`${classes["form__input"]} ${
@@ -207,7 +205,6 @@ const Main = () => {
                 mask="99"
                 maskChar={null}
                 type="text"
-                maxLength={2}
                 onChange={yearOnChangeHandler}
                 onBlur={yearOnChangeHandler}
                 className={`${classes["form__input"]} ${
@@ -233,7 +230,6 @@ const Main = () => {
               <InputMask
                 mask="999"
                 maskChar={null}
-                maxLength={3}
                 className={`${classes["form__input--half"]} ${
                   cvcHasError ? classes.form__input__invalid : ""
                 }`}
@@ -243,7 +239,7 @@ const Main = () => {
               />
               {cvcHasError && (
                 <p className={classes["form__text-error"]}>
-                  {cvc === "" ? "Can't be blank" : "Must have 3 caracters"}
+                  {cvc === "" ? "Can't be blank" : "Must have 3 characters"}
                 </p>
               )}
             </div>
