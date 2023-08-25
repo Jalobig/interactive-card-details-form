@@ -8,72 +8,97 @@ import BGCardBack from "../../images/bg-card-back.png";
 import CardLogo from "../../images//card-logo.svg";
 import Button from "../../components/Button/Button";
 import Submitted from "../../components/Submitted/Submitted";
-
+import InputMask from "react-input-mask";
 
 const Main = () => {
-    //Mask the Credit Card Number Input
-    const [name, setName]= useState('')
-    const [number, setNumber]= useState('')
-    const [month, setMonth]= useState('')
-    const [year, setYear]= useState('')
-    const [cvc, setCVC]= useState('')
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    // const cardnumber_mask = new IMask(number, {
-    //     mask: [
-    //         {
-    //             mask: '0000 000000 00000',
-    //             regex: '^3[47]\\d{0,13}',
-    //             cardtype: 'american express'
-    //         },
-    //         {
-    //             mask: '0000 000000 0000',
-    //             regex: '^3(?:0([0-5]|9)|[689]\\d?)\\d{0,11}',
-    //             cardtype: 'diners'
-    //         },
-    //         {
-    //             mask: '0000 0000 0000 0000',
-    //             regex: '^(5[1-5]\\d{0,2}|22[2-9]\\d{0,1}|2[3-7]\\d{0,2})\\d{0,12}',
-    //             cardtype: 'mastercard'
-    //         },
-    //         {
-    //             mask: '0000 000000 00000',
-    //             regex: '^(?:2131|1800)\\d{0,11}',
-    //             cardtype: 'jcb15'
-    //         },
-    //         {
-    //             mask: '0000 0000 0000 0000',
-    //             cardtype: 'Unknown'
-    //         }
-    //     ],
-    //     dispatch: function (appended, dynamicMasked) {
-    //         var number = (dynamicMasked.value + appended).replace(/\D/g, '');
-    
-    //         for (var i = 0; i < dynamicMasked.compiledMasks.length; i++) {
-    //             let re = new RegExp(dynamicMasked.compiledMasks[i].regex);
-    //             if (number.match(re) != null) {
-    //                 return dynamicMasked.compiledMasks[i];
-    //             }
-    //         }
-    //     }
-    // });
-    const submitHandler = () => {
-    setIsSubmitted((prevState) => !prevState);
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+  const [cvc, setCVC] = useState("");
+  const [nameHasError, setNameHasError] = useState(false);
+  const [numberHasError, setNumberHasError] = useState(false);
+  const [monthHasError, setMonthHasError] = useState(false);
+  const [yearHasError, setYearHasError] = useState(false);
+  const [cvcHasError, setCVCHasError] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const yearNow = new Date();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (
+      name.length < 3 ||
+      number.length !== 19 ||
+      +month <= 0 ||
+      +month >= 12 ||
+      +("20" + year) < yearNow.getFullYear() ||
+      cvc.length !== 3
+    ) {
+      if (name.length < 3) {
+        setNameHasError(true);
+      }
+      if (number.length !== 19) {
+        setNumberHasError(true);
+      }
+      if (+month < 1 || +month > 12) {
+        setMonthHasError(true);
+      }
+      if (+("20" + year) < yearNow.getFullYear()) {
+        setYearHasError(true);
+      }
+      if (cvc.length !== 3) {
+        setCVCHasError(true);
+      }
+    } else if (
+      !nameHasError &&
+      !numberHasError &&
+      !monthHasError &&
+      !yearHasError &&
+      !cvcHasError
+    ) {
+      setIsSubmitted((prevState) => !prevState);
+    }
   };
   const nameOnChangeHandler = (e) => {
-    setName(e.target.value)
-  }
+    setName(e.target.value);
+    if (e.target.value === "") {
+      setNameHasError(true);
+      return;
+    }
+    setNameHasError(false);
+  };
   const numberOnChangeHandler = (e) => {
-    setNumber(e.target.value)
-  }
+    setNumber(e.target.value);
+    if (e.target.value === "") {
+      setNumberHasError(true);
+      return;
+    }
+    setNumberHasError(false);
+  };
   const monthOnChangeHandler = (e) => {
-    setMonth(e.target.value)
-  }
+    setMonth(e.target.value);
+    if (e.target.value === "") {
+      setMonthHasError(true);
+      return;
+    }
+    setMonthHasError(false);
+  };
   const yearOnChangeHandler = (e) => {
-    setYear(e.target.value)
-  }
+    setYear(e.target.value);
+    if (e.target.value === "") {
+      setYearHasError(true);
+      return;
+    }
+    setYearHasError(false);
+  };
   const cvcOnChangeHandler = (e) => {
-    setCVC(e.target.value)
-  }
+    setCVC(e.target.value);
+    if (e.target.value === "") {
+      setCVCHasError(true);
+      return;
+    }
+    setCVCHasError(false);
+  };
   const media = useMediaQuery("only screen and (max-width:1300px)");
   return (
     <main className={classes.main}>
@@ -103,13 +128,15 @@ const Main = () => {
             className={classes["credit-card__front--logo"]}
           />
           <h1 className={classes["credit-card__front--number"]}>
-            {number === ""? '0000 0000 0000 0000': number}
+            {number === "" ? "0000 0000 0000 0000" : number}
           </h1>
           <div className={classes["credit-card__front--row"]}>
             <p className={classes["credit-card__front--info"]}>
-              {name === ''?'Jane Appleseed': name}
+              {name === "" ? "Jane Appleseed" : name}
             </p>
-            <p className={classes["credit-card__front--info"]}>00/00</p>
+            <p className={classes["credit-card__front--info"]}>
+              {month === "" ? "00" : month}/{year === "" ? "00" : year}
+            </p>
           </div>
         </div>
         <div className={classes["credit-card__back"]}>
@@ -118,40 +145,112 @@ const Main = () => {
             alt="Back of the Credit Card"
             className={classes["credit-card__back--img"]}
           />
-          <p className={classes["credit-card__back--cvc"]}>000</p>
+          <p className={classes["credit-card__back--cvc"]}>
+            {cvc === "" ? "000" : cvc}
+          </p>
         </div>
       </div>
-      {isSubmitted? <Submitted onClick={submitHandler}/> :<form className={classes.form}>
-        <label className={classes.form__label}>Cardholder Name</label>
-        <input
-          className={classes["form__input--full"]}
-          placeholder="e.g. Jane Appleseed"
-          onChange={nameOnChangeHandler}
+      {isSubmitted ? (
+        <Submitted
+          onClick={() => {
+            setIsSubmitted((prevState) => !prevState);
+          }}
         />
-        <label className={classes.form__label}>Card Number</label>
-        <input
-          className={`${classes["form__input--full"]} ${classes.form__mask}`}
-          placeholder="e.g. 1234 5678 9123 0000"
-          type="text"
-          maxLength={16}
-          onChange={numberOnChangeHandler}
-        />
-        <div className={classes.form__group}>
-          <div>
-            <label className={classes.form__label}>Exp. Date (MM/YY)</label>
-            <input className={classes["form__input"]} placeholder="MM" />
-            <input className={classes["form__input"]} placeholder="YY" />
+      ) : (
+        <form className={classes.form} onSubmit={submitHandler}>
+          <label className={classes.form__label}>Cardholder Name</label>
+          <input
+            className={`${classes["form__input--full"]} ${
+              nameHasError ? classes.form__input__invalid : ""
+            }`}
+            placeholder="e.g. Jane Appleseed"
+            onChange={nameOnChangeHandler}
+            onBlur={nameOnChangeHandler}
+          />
+          {nameHasError && (
+            <p className={classes["form__text-error"]}>
+              Must have at least 3 caracters
+            </p>
+          )}
+          <label className={classes.form__label}>Card Number</label>
+          <InputMask
+            className={`${classes["form__input--full"]} ${
+              numberHasError ? classes.form__input__invalid : ""
+            }`}
+            placeholder="e.g. 1234 5678 9123 0000"
+            mask="9999 9999 9999 9999"
+            maskChar={null}
+            type="text"
+            maxLength={19}
+            onChange={numberOnChangeHandler}
+            onBlur={numberOnChangeHandler}
+          />
+          {numberHasError && (
+            <p className={classes["form__text-error"]}>Must have 16 digits</p>
+          )}
+          <div className={classes.form__group}>
+            <div>
+              <label className={classes.form__label}>Exp. Date (MM/YY)</label>
+              <InputMask
+                mask="99"
+                maskChar={null}
+                type="text"
+                maxLength={2}
+                onChange={monthOnChangeHandler}
+                onBlur={monthOnChangeHandler}
+                className={`${classes["form__input"]} ${
+                  monthHasError ? classes.form__input__invalid : ""
+                }`}
+                placeholder="MM"
+              />
+              <InputMask
+                mask="99"
+                maskChar={null}
+                type="text"
+                maxLength={2}
+                onChange={yearOnChangeHandler}
+                onBlur={yearOnChangeHandler}
+                className={`${classes["form__input"]} ${
+                  yearHasError ? classes.form__input__invalid : ""
+                }`}
+                placeholder="YY"
+              />
+              {monthHasError && (
+                <p
+                  className={`${classes["form__text-error"]} ${classes["form__text-error--min"]}`}
+                >
+                  Month must be between 1 and 12
+                </p>
+              )}
+              {yearHasError && (
+                <p className={classes["form__text-error"]}>
+                  {year === "" ? "Can't be blank" : "Must be in the future"}
+                </p>
+              )}
+            </div>
+            <div>
+              <label className={classes.form__label}>CVC</label>
+              <InputMask
+                mask="999"
+                maskChar={null}
+                maxLength={3}
+                className={`${classes["form__input--half"]} ${
+                  cvcHasError ? classes.form__input__invalid : ""
+                }`}
+                placeholder="e.g. 123"
+                onChange={cvcOnChangeHandler}
+                onBlur={cvcOnChangeHandler}
+              />
+              {cvcHasError && (
+                <p className={classes["form__text-error"]}>
+                  {cvc === "" ? "Can't be blank" : "Must have 3 caracters"}
+                </p>
+              )}
+            </div>
           </div>
-          <div>
-            <label className={classes.form__label}>CVC</label>
-            <input
-              className={classes["form__input--half"]}
-              placeholder="e.g. 123"
-            />
-          </div>
-        </div>
-        <Button onClick={submitHandler}>Confirm</Button>
-      </form>}
+          <Button onClick={submitHandler}>Confirm</Button>
+        </form>
+      )}
     </main>
   );
 };

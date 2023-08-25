@@ -1,18 +1,47 @@
+@keyframes icon-animation {
+  0% {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(0.8);
+  }
+  80% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes fade-in-top {
+    0%{opacity: 0;
+    transform: translateY(3rem);
+    }
+    100%{opacity: 1;
+    transform: translateY(0);
+    }
+}
 .submit {
+    animation: fade-in-top .3s backwards;
   width: 23.75rem;
   margin: 0 auto;
   align-self: center;
   text-align: center;
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 1300px) {
     margin-top: 5rem;
+  }
+  @media only screen and (max-width: 400px) {
     width: 90%;
   }
   &__icon {
-}
-&__heading {
-      margin: 1rem 0 .5rem;
-      text-transform: uppercase;
-      letter-spacing: 4px;
+    animation: icon-animation 1s .3s backwards;
+  }
+  &__heading {
+    margin: 1rem 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
   }
   &__text {
     color: var(--color-grey);

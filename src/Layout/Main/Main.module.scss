@@ -1,9 +1,49 @@
+@keyframes fade-in-card {
+  0%{
+    opacity: 0;
+    transform: translateX(-3rem);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fade-in-form {
+  0%{
+    opacity: 0;
+    transform: translateX(3rem);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes error-animation {
+  0%{
+    transform: translateX(0);
+  }
+  20%{
+    transform: translateX(.3rem);
+  }
+  40%{
+    transform: translateX(-.3rem);
+  }
+  60%{
+    transform: translateX(.3rem);
+  }
+  80%{
+    transform: translateX(-.3rem);
+  }
+  100%{
+    transform: translateX(0);
+  }
+}
 .main {
   display: flex;
-  @media only screen and (max-width:1300px) {
+  @media only screen and (max-width: 1300px) {
     flex-direction: column;
   }
-  @media only screen and (max-width:1300px) {
+  @media only screen and (max-width: 1300px) {
     margin-bottom: 4rem;
   }
 }
@@ -11,11 +51,11 @@
   height: 100vh;
   width: 30.3125rem;
   z-index: -100;
-  @media only screen and (max-width:1300px) {
-   width: 100%; 
-   height: 25rem;
+  @media only screen and (max-width: 1300px) {
+    width: 100%;
+    height: 25rem;
   }
-  @media only screen and (max-width:600px) {
+  @media only screen and (max-width: 600px) {
     height: 15.0625rem;
   }
 }
@@ -24,9 +64,9 @@
   align-self: center;
   left: 16rem;
   color: var(--color-white);
-  @media only screen and (max-width:1300px) {
-   left:50%; 
-   transform: translateX(-50%);
+  @media only screen and (max-width: 1300px) {
+    left: 50%;
+    transform: translateX(-50%);
   }
   &__front,
   &__back {
@@ -35,26 +75,25 @@
     position: relative;
     max-height: 15.325rem;
     height: 15.325rem;
-    @media only screen and (max-width:600px) {
+    @media only screen and (max-width: 600px) {
       max-height: 9.6875rem;
       height: 9.6875rem;
       width: 17.8125rem;
     }
   }
   &__front {
+    animation: fade-in-card .5s cubic-bezier(.23,-0.39,.97,1.49) backwards;
     padding: 2rem;
     margin-left: -6rem;
     margin-bottom: 2rem;
-    @media only screen and (max-width:1300px) {
-      
+    @media only screen and (max-width: 1300px) {
       margin-bottom: 0;
-      margin-top: 11.8125rem; 
+      margin-top: 11.8125rem;
     }
-    @media only screen and (max-width:600px) {
+    @media only screen and (max-width: 600px) {
       padding: 1rem;
-      margin-top: 8.8125rem; 
+      margin-top: 8.8125rem;
       margin-left: -3rem;
-    
     }
 
     &--img {
@@ -67,7 +106,7 @@
     }
     &--logo {
       margin-bottom: 3rem;
-      @media only screen and (max-width:600px) {
+      @media only screen and (max-width: 600px) {
         margin-bottom: 1.5rem;
         width: 3.125rem;
       }
@@ -76,8 +115,8 @@
       font-size: 1.7rem;
       letter-spacing: 3px;
       font-weight: 500;
-      @media only screen and (max-width:600px) {
-    font-size: 1rem;
+      @media only screen and (max-width: 600px) {
+        font-size: 1rem;
       }
     }
     &--row {
@@ -89,18 +128,20 @@
       text-transform: uppercase;
       font-size: 1rem;
       letter-spacing: 1px;
-      @media only screen and (max-width:600px) {
-        font-size: .7rem;
+      @media only screen and (max-width: 600px) {
+        font-size: 0.7rem;
       }
     }
   }
   &__back {
-    @media only screen and (max-width:1300px) {
+    animation: fade-in-card .5s cubic-bezier(.23,-0.39,.97,1.49) .3s backwards;
+
+    @media only screen and (max-width: 1300px) {
       margin-top: -24rem;
       z-index: -10;
-    margin-right: -6rem;
+      margin-right: -6rem;
     }
-    @media only screen and (max-width:600px) {
+    @media only screen and (max-width: 600px) {
       margin-top: -15rem;
     }
     &--img {
@@ -116,8 +157,8 @@
       right: 4rem;
       top: 45%;
       z-index: 10;
-      @media only screen and (max-width:600px) {
-        font-size: .7rem;
+      @media only screen and (max-width: 600px) {
+        font-size: 0.7rem;
         right: 2rem;
       }
     }
@@ -125,14 +166,15 @@
 }
 
 .form {
+  animation: fade-in-form .5s cubic-bezier(.23,-0.39,.97,1.49) .7s backwards;
+
   width: 23.75rem;
   margin: 0 auto;
   align-self: center;
-  @media only screen and (max-width:1300px) {
+  @media only screen and (max-width: 1300px) {
     margin-top: 5rem;
   }
-  @media only screen and (max-width:600px) {
-
+  @media only screen and (max-width: 600px) {
     width: 90%;
   }
   &__label {
@@ -141,7 +183,7 @@
     letter-spacing: 2px;
     font-weight: 700;
     font-size: 0.8rem;
-    margin-top: .5rem;
+    margin-top: 1rem;
   }
   &__group {
     display: flex;
@@ -153,7 +195,6 @@
     &--half,
     &--full {
       display: inline-block;
-
       border: 1px solid var(--color-grey);
       padding: 1rem;
       font-family: inherit;
@@ -173,21 +214,30 @@
         color: var(--color-grey);
       }
     }
-    margin: 0.5rem 0.5rem 0 0;
+    margin: 0.5rem 0.5rem 0.4rem 0;
     &--half {
       width: 11.875rem;
-      margin: 0.5rem 0 1rem 0;
-      @media only screen and (max-width:600px) {
+      margin: 0.5rem 0 0.4rem 0;
+      @media only screen and (max-width: 600px) {
         width: 100%;
       }
     }
     &--full {
-      margin: 0.5rem 0 1rem 0;
+      margin: 0.5rem 0 0.4rem 0;
       width: 100%;
     }
-
+    &__invalid {
+      border: 1px solid var(--color-error);
+    }
   }
-  &__mask{
-    mask: '0000 0000 0000 0000';
+  &__text-error {
+    animation: error-animation .5s .1s;
+    color: var(--color-error);
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+    &--min{
+      max-width: 11rem;
+      margin-bottom: 0rem;
+    }
   }
 }
